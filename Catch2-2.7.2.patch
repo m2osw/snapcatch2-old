@@ -1,0 +1,11 @@
+diff -Naur Catch2-2.7.2/projects/CMakeLists.txt Catch2-2.7.2a/projects/CMakeLists.txt
+--- Catch2-2.7.2/projects/CMakeLists.txt	2019-04-22 21:15:59.000000000 +0000
++++ Catch2-2.7.2a/projects/CMakeLists.txt	2019-05-19 21:05:32.459385596 +0000
+@@ -275,6 +275,7 @@
+ 
+ add_executable(SelfTest ${TEST_SOURCES} ${IMPL_SOURCES} ${REPORTER_SOURCES} ${SURROGATE_SOURCES} ${HEADERS})
+ target_include_directories(SelfTest PRIVATE ${HEADER_DIR})
++set_target_properties(SelfTest PROPERTIES OUTPUT_NAME SelfTest.exe)
+ 
+ if(USE_CPP17)
+     message(STATUS "Enabling C++17")

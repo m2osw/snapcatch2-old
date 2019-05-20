@@ -1,11 +1,30 @@
 
-## Catch2 CMakeLists.txt understood flags
+# Snap! Catch2
 
-### Coverage
+This package is used so we can have the latest version of Catch to run
+along Snap! Websites. We  tried to move to Ubuntu 18.04 and had problems
+to support 16.04 and 18.04 because it changes so much so quickly.
 
-Use `CATCH_ENABLE_COVERAGE` to enable the coverage test.
+This package will allow us to upgrade all our projects to the latest
+available quickly and have a consistant version of Catch through various
+versions of Ubuntu.
 
-### Compiler Version
+# Building
+
+## Within the Snap! Websites Environment
+
+In our environment, we have the source in a tarball and a patch.
+We extract the tarball, run the make of Catch, then the install target.
+Once that is done, our own CMakeLists.txt can install the results so
+it can get installed in our Debian environment.
+
+## cmake files
+
+Note that the Catch people somehow install the the cmake files under
+`/usr/lib/cmake/...`. I moved those to `/usr/shared/cmake/...` because
+that's where I see those files under Ubuntu.
+
+## Compiler Version
 
 By default it compiles with C++11.
 
@@ -19,6 +38,8 @@ In version 2.7.2 there is a bug in the CMakeLists.txt so I created a patch:
 
     LC_ALL=C TZ=UTC0 diff -Naur Catch2-2.7.2 Catch2-2.7.2a >Catch2-2.7.2.patch
 
+## Build & Install of Catch itself
+
 To build, I run:
 
     rm -rf Catch2-2.7.2
@@ -27,27 +48,4 @@ To build, I run:
     cd Catch2-2.7.2
     cmake -DUSE_CPP14 -DCMAKE_INSTALL_PREFIX=... .
     make install
-
-## Files found in the Ubuntu official version of catch (v1.x)
-
-catch: /usr/include/catch.hpp
-catch: /usr/share/doc/catch/README.md
-catch: /usr/share/doc/catch/changelog.Debian.gz
-catch: /usr/share/doc/catch/copyright
-catch: /usr/share/doc/catch/docs/Readme.md
-catch: /usr/share/doc/catch/docs/assertions.md
-catch: /usr/share/doc/catch/docs/build-systems.md
-catch: /usr/share/doc/catch/docs/command-line.md.gz
-catch: /usr/share/doc/catch/docs/configuration.md.gz
-catch: /usr/share/doc/catch/docs/contributing.md
-catch: /usr/share/doc/catch/docs/logging.md
-catch: /usr/share/doc/catch/docs/own-main.md
-catch: /usr/share/doc/catch/docs/slow-compiles.md
-catch: /usr/share/doc/catch/docs/test-cases-and-sections.md
-catch: /usr/share/doc/catch/docs/test-fixtures.md
-catch: /usr/share/doc/catch/docs/tostring.md
-catch: /usr/share/doc/catch/docs/tutorial.md.gz
-catch: /usr/share/doc/catch/docs/whats-changed.md
-catch: /usr/share/doc/catch/docs/why-catch.md
-
 

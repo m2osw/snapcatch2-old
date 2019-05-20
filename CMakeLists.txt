@@ -41,18 +41,50 @@ find_package( SnapCMakeModules REQUIRED )
 SnapGetVersion( SNAPCATCH2 ${CMAKE_CURRENT_SOURCE_DIR} )
 
 set(SNAPCATCH2_VERSION ${SNAPCATCH2_VERSION_MAJOR}.${SNAPCATCH2_VERSION_MINOR}.${SNAPCATCH2_VERSION_PATCH})
-set(OUTPUT_PATH ${CMAKE_SOURCE_DIR}/Catch2-${SNAPCATCH2_VERSION})
+set(OUTPUT_PATH ${CMAKE_BINARY_DIR}/Catch2-${SNAPCATCH2_VERSION})
 
 add_custom_command(
-    OUTPUT ${OUTPUT_PATH}
+    OUTPUT ${OUTPUT_PATH}/out/include/catch2/catch.hpp
+    COMMAND echo "------------ sub-cmake call in `pwd` -- ${CMAKE_INSTALL_PREFIX}"
     COMMAND rm -rf ${OUTPUT_PATH}
     COMMAND tar xf ${CMAKE_SOURCE_DIR}/catch2-${SNAPCATCH2_VERSION}.tar.gz
-    COMMAND patch ${OUTPUT_PATH}/projects/CMakeLists.txt <${OUTPUT_PATH}.patch
-    COMMAND cd ${OUTPUT_PATH}
-    COMMAND mkdir out
-    COMMAND cmake -DUSE_CPP14 -DCMAKE_INSTALL_PREFIX=`pwd`/out .
-    COMMAND make install
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    COMMAND patch ${OUTPUT_PATH}/projects/CMakeLists.txt <${CMAKE_SOURCE_DIR}/Catch2-${SNAPCATCH2_VERSION}.patch
+    COMMAND mkdir -p ${OUTPUT_PATH}/out
+    COMMAND cd ${OUTPUT_PATH} && ${CMAKE_COMMAND} -DUSE_CPP14=on -DCMAKE_INSTALL_PREFIX=${OUTPUT_PATH}/out .
+    COMMAND make -C ${OUTPUT_PATH} install
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+)
+
+message( "Dependency: ${OUTPUT_PATH}" )
+add_custom_target( run ALL
+    DEPENDS ${OUTPUT_PATH}/out/include/catch2/catch.hpp
+    COMMENT "Generating API documentation with Doxygen" VERBATIM
+)
+
+install(
+    DIRECTORY
+        ${OUTPUT_PATH}/out/include/
+
+    DESTINATION
+        include
+)
+
+# The current setup places the cmake directory under /usr/lib
+# On our end we want it under /usr/share instead
+install(
+    DIRECTORY
+        ${OUTPUT_PATH}/out/lib/
+
+    DESTINATION
+        share
+)
+
+install(
+    DIRECTORY
+        ${OUTPUT_PATH}/out/share/
+
+    DESTINATION
+        share
 )
 
 # vim: ts=4 sw=4 et nocindent

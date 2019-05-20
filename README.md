@@ -38,6 +38,18 @@ In version 2.7.2 there is a bug in the CMakeLists.txt so I created a patch:
 
     LC_ALL=C TZ=UTC0 diff -Naur Catch2-2.7.2 Catch2-2.7.2a >Catch2-2.7.2.patch
 
+**IMPORTANT:** After all the patch was not necessary. The fact is you have
+to run the build in a specific sub-folder to make it all work _correctly_.
+
+See details in the corresponding issue and the documentation about it:
+
+https://github.com/catchorg/Catch2/issues/1636#issuecomment-494127700
+
+https://github.com/catchorg/Catch2/blob/master/projects/Where%20did%20the%20projects%20go.txt
+
+It is _just_ that `catch2` has an unconventional location for the build
+to run compared to _normal_ `cmake` projects.
+
 ## Build & Install of Catch itself
 
 To build, I run:

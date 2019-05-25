@@ -51,7 +51,7 @@ add_custom_command(
     COMMAND if test -f ${CMAKE_SOURCE_DIR}/Catch2-${SNAPCATCH2_VERSION}.patch\; then patch ${OUTPUT_PATH}/projects/CMakeLists.txt <${CMAKE_SOURCE_DIR}/Catch2-${SNAPCATCH2_VERSION}.patch\; fi
     COMMAND mkdir -p ${OUTPUT_PATH}/out
     COMMAND mkdir -p ${OUTPUT_PATH}/projects/Generated
-    COMMAND cd ${OUTPUT_PATH}/projects/Generated && ${CMAKE_COMMAND} -DUSE_CPP14=on -DCATCH_INSTALL_HELPERS=on -DCATCH_INSTALL_DOCS=on -DCMAKE_INSTALL_PREFIX=${OUTPUT_PATH}/out ../..
+    COMMAND cd ${OUTPUT_PATH}/projects/Generated && ${CMAKE_COMMAND} -DCATCH_BUILD_TESTING=off -DCATCH_INSTALL_HELPERS=on -DCATCH_INSTALL_DOCS=on -DCMAKE_INSTALL_PREFIX=${OUTPUT_PATH}/out ../..
     COMMAND make -C ${OUTPUT_PATH}/projects/Generated install
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 )

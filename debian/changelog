@@ -1,3 +1,10 @@
+snapcatch2 (2.7.2.1~xenial) xenial; urgency=high
+
+  * Use the CATCH_BUILD_TESTING flag so we avoid compiling anything and
+    especially we do not need python installed (faster build).
+
+ -- Alexis Wilke <alexis@m2osw.com>  Sat, 25 May 2019 12:57:21 -0800
+
 snapcatch2 (2.7.2.0~xenial) xenial; urgency=high
 
   * A version of catch on the edge for the Snap! C++ environment.

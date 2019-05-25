@@ -1,4 +1,9 @@
 
+<p align="center">
+<img alt="advgetopt" title="CMake Module Extensions to Build Snap! C++."
+src="https://snapwebsites.org/sites/snapwebsites.org/files/images/catch2-logo-small.png" width="502" height="242"/>
+</p>
+
 # Snap! Catch2
 
 This package is used so we can have the latest version of Catch to run

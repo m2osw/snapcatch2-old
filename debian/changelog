@@ -1,3 +1,10 @@
+snapcatch2 (2.7.2.6~xenial) xenial; urgency=high
+
+  * It's getting there, but we get all the files installed twice and in
+    the wrong sub-directory for many. Trying again.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Sat, 25 May 2019 15:20:12 -0800
+
 snapcatch2 (2.7.2.5~xenial) xenial; urgency=high
 
   * One more try with the .install and folders.

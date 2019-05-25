@@ -1,5 +1,5 @@
-debian/snapcatch2/usr/include/*
-debian/snapcatch2/usr/share/x86_64-linux-gnu/cmake      usr/share/cmake/
-debian/snapcatch2/usr/share/pkgconfig/*
-debian/snapcatch2/usr/share/Catch2/*
-debian/snapcatch2/usr/share/doc/*
+debian/snapcatch2/usr/include                           usr
+debian/snapcatch2/usr/share/x86_64-linux-gnu/cmake      usr/share/
+debian/snapcatch2/usr/share/pkgconfig                   usr/share/
+debian/snapcatch2/usr/share/Catch2                      usr/share/
+debian/snapcatch2/usr/share/doc                         usr/share/

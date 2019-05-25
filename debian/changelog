@@ -1,3 +1,11 @@
+snapcatch2 (2.7.2.3~xenial) xenial; urgency=high
+
+  * Fixed the installation folders as the lib includes "x86_64-linux-gnu".
+  * Removed the usr/lib/* since we install the cmake data under usr/share
+  * Actually added the compat and rules to the git repository.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Sat, 25 May 2019 14:20:42 -0800
+
 snapcatch2 (2.7.2.2~xenial) xenial; urgency=high
 
   * Set paths in snapcatch2.install to include "debian/snapcatch2/".

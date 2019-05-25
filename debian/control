@@ -21,4 +21,12 @@ Description: A modern C++ test framework for unit-tests, TDD and BDD.
  and BDD - using C++11, C++14, C++17 and later (or C++03 on the Catch1.x
  branch--this package is only for the Catch2.x branch, though).
 
+Package: snapcatch2-doc
+Section: doc
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: snapcatch2
+Description: A modern C++ test framework for unit-tests, TDD and BDD.
+ The documentation about the catch2 environment.
+
 # vim: ts=4 sw=4 et

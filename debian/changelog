@@ -1,3 +1,9 @@
+snapcatch2 (2.7.2.5~xenial) xenial; urgency=high
+
+  * One more try with the .install and folders.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Sat, 25 May 2019 14:54:00 -0800
+
 snapcatch2 (2.7.2.4~xenial) xenial; urgency=high
 
   * Fixed the README.md talk about the patch.

@@ -1,3 +1,10 @@
+snapcatch2 (2.7.2.8~xenial) xenial; urgency=high
+
+  * Removing the debian/snapcatch2 introducer, not necessary with multiple
+    package definitions
+
+ -- Alexis Wilke <alexis@m2osw.com>  Sat, 25 May 2019 16:58:20 -0800
+
 snapcatch2 (2.7.2.7~xenial) xenial; urgency=high
 
   * Adding a doc package to try to resolve the install problem.

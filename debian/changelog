@@ -1,3 +1,9 @@
+snapcatch2 (2.7.2.9~xenial) xenial; urgency=high
+
+  * Fixed the name of the README.md file in the debian/docs file.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Sat, 25 May 2019 17:03:28 -0800
+
 snapcatch2 (2.7.2.8~xenial) xenial; urgency=high
 
   * Removing the debian/snapcatch2 introducer, not necessary with multiple

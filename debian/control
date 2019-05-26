@@ -23,7 +23,7 @@ Description: A modern C++ test framework for unit-tests, TDD and BDD.
 
 Package: snapcatch2-doc
 Section: doc
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Suggests: snapcatch2
 Description: A modern C++ test framework for unit-tests, TDD and BDD.

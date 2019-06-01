@@ -1,3 +1,9 @@
+snapcatch2 (2.8.0.2~xenial) xenial; urgency=high
+
+  * Moved the safe_setenv class to snapdev instead.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Sat,  1 Jun 2019 00:50:37 -0800
+
 snapcatch2 (2.8.0.1~xenial) xenial; urgency=high
 
   * Added our own snapcatch2.hpp header so we do not have to re-write our

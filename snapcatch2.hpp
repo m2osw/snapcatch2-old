@@ -147,7 +147,7 @@ inline bool& g_progress()
  *
  *     std::string g_tmpdir= std::string("/tmp");
  *
- *     clara::Parser add_command_line_options(clara::Parser const & cli)
+ *     Catch::clara::Parser add_command_line_options(Catch::clara::Parser const & cli)
  *     {
  *         return cli
  *              | Catch::clara::Opt(g_tmpdir, "tmpdir")

@@ -1,3 +1,9 @@
+snapcatch2 (2.8.0.3~xenial) xenial; urgency=high
+
+  * Fixed references to "clara" which is inside the Catch namespace.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Sat,  1 Jun 2019 13:11:38 -0800
+
 snapcatch2 (2.8.0.2~xenial) xenial; urgency=high
 
   * Moved the safe_setenv class to snapdev instead.

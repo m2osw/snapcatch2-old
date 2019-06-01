@@ -88,4 +88,12 @@ install(
         share
 )
 
+install(
+    FILES
+        snapcatch2.hpp
+
+    DESTINATION
+        include/catch2
+)
+
 # vim: ts=4 sw=4 et nocindent

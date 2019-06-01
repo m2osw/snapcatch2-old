@@ -1,3 +1,10 @@
+snapcatch2 (2.8.0.1~xenial) xenial; urgency=high
+
+  * Added our own snapcatch2.hpp header so we do not have to re-write our
+    main() each time. All our tests have quite a few paramters in common.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Sat,  1 Jun 2019 00:16:24 -0800
+
 snapcatch2 (2.8.0.0~xenial) xenial; urgency=high
 
   * Upgrading to version 2.8.0 which just came out.

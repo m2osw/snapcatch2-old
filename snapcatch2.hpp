@@ -100,6 +100,31 @@ inline bool& g_progress()
 }
 
 
+/** \brief Print out information to let programmers know what tests are doing.
+ *
+ * This flag is used whenever useful information could be outputted. The
+ * flag let the test know whether to print that information or not.
+ *
+ * You are welcome to use the parameter in your own code. Just make sure
+ * to use the parenthesis:
+ *
+ * \code
+ *     if(g_verbose())
+ *     {
+ *         std::cout << "More info about this test!" << std::endl;
+ *     }
+ * \endcode
+ *
+ * \return A read-write reference to the `verbose` parameter.
+ */
+inline bool& g_verbose()
+{
+    static bool verbose = false;
+
+    return verbose;
+}
+
+
 #ifdef CATCH_CONFIG_RUNNER
 /** \brief The main function to initialize and run the unit tests.
  *
@@ -209,14 +234,25 @@ inline bool& g_progress()
  *     );
  * \endcode
  *
+ * Once the tests ran, we call the \p finished_callback as well. This gives
+ * you the ability to test futher things such as making sure that everything
+ * was cleaned up, resources released, etc. For example, in our advgetopt
+ * we use a FIFO to handle error messages. If an error never occurs that
+ * FIFO will not be empty on exit. This is actually an error in the test.
+ * Only errors that do occur have to be added to the FIFO. So on exit we
+ * want to verify that the FIFO is indeed empty.
+ *
  * \param[in] project_name  The name of the project (i.e. "libutf8").
  * \param[in] project_version  The version string of the project
  *                     (i.e. "LIBUTF8_VERSION_STRING").
  * \param[in] argc  The number of arguments on the command line.
  * \param[in] argv  An array of strings with the command line arguments.
+ * \param[in] init_callback  Callback called before anything else.
  * \param[in] add_user_options  A callback giving you the opportunity to add
  *                              command line options before argv gets parsed.
  * \param[in] callback  A callback called just before we run the tests.
+ * \param[in] finished_callback  The callback called just after all the tests
+ *                               ran.
  *
  * \return The exit code, usually 0 on success and 1 on an error.
  */
@@ -227,7 +263,8 @@ inline int snap_catch2_main(
         , char * argv[]
         , void (*init_callback)() = nullptr
         , Catch::clara::Parser (*add_user_options)(Catch::clara::Parser const & cli) = nullptr
-        , int (*callback)(Catch::Session & session) = nullptr)
+        , int (*callback)(Catch::Session & session) = nullptr
+        , void (*finished_callback)() = nullptr)
 {
     typedef unsigned int seed_t; // see `man srand(3)` for type
 
@@ -250,6 +287,9 @@ inline int snap_catch2_main(
                  | Catch::clara::Opt(g_progress())
                     ["-p"]["--progress"]
                     ("print name of test section being run")
+                 | Catch::clara::Opt(g_verbose())
+                    ["--verbose"]
+                    ("print additional information from within our own tests")
                  | Catch::clara::Opt(version)
                     ["-V"]["--version"]
                     ("print out the libutf8 library version these unit tests pertain to");
@@ -296,7 +336,14 @@ inline int snap_catch2_main(
                   << seed
                   << std::endl;
 
-        return session.run();
+        auto const r(session.run());
+
+        if(finished_callback != nullptr)
+        {
+            finished_callback();
+        }
+
+        return r;
     }
     catch(std::logic_error const & e)
     {
@@ -361,7 +408,7 @@ inline int snap_catch2_main(
     { \
         if(SNAP_CATCH2_NAMESPACE::g_progress()) \
         { \
-            std::cout << name << std::endl; \
+            std::cout << "SECTION: " << name << std::endl; \
         }
 
 /** \brief End a section.
@@ -372,6 +419,61 @@ inline int snap_catch2_main(
 #define CATCH_END_SECTION() \
     }
 
+
+namespace Catch
+{
+namespace Matchers
+{
+
+
+class ExceptionWatcher
+    : public MatcherBase<std::exception>
+{
+public:
+    ExceptionWatcher(std::string const & expected_message)
+        : m_expected_message(expected_message)
+    {
+    }
+
+    /** \brief Check whether we got a match.
+     *
+     * This function compares the expected string with the actual exception
+     * what() output.
+     */
+    bool match(std::exception const & e) const override
+    {
+        return e.what() == m_expected_message;
+    }
+
+    /** \brief Describe this matcher.
+     *
+     * This function produces a string describing what this matcher does.
+     *
+     * \return The description of this matcher.
+     */
+    virtual std::string describe() const override
+    {
+        return "compare the exception what() message with \""
+             + m_expected_message
+             + "\".";
+    }
+
+private:
+    std::string     m_expected_message = std::string();
+};
+
+
+inline ExceptionWatcher ExceptionMessage(std::string const & expeted_message)
+{
+    return ExceptionWatcher(expeted_message);
+}
+
+
+
+}
+// Matchers namespace
+}
+// Catch namespace
 
 
 // vim: ts=4 sw=4 et

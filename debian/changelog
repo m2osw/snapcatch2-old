@@ -1,3 +1,12 @@
+snapcatch2 (2.8.0.4~xenial) xenial; urgency=high
+
+  * Added the ExceptionWatcher to easily verify the message of an exception.
+  * Added a --verbose in the list of default options. The --verbosity from
+    the catch environment does something else.
+  * Added a finished_callback function pointer called after all the tests ran.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Sat,  1 Jun 2019 20:27:28 -0800
+
 snapcatch2 (2.8.0.3~xenial) xenial; urgency=high
 
   * Fixed references to "clara" which is inside the Catch namespace.

@@ -207,7 +207,7 @@ inline bool& g_verbose()
  *
  *     int finish_init(Catch::Session & session)
  *     {
- *         std::string cmd("mkdir -p ");
+ *         std::string cmd("rm -rf ");
  *         cmd += g_tmpdir;
  *         cmd += "/my-project";
  *         if(system(cmd.c_str()) != 0)

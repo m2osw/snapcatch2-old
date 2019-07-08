@@ -401,6 +401,10 @@ inline int snap_catch2_main(
  * You do not need to add a block like you have to do with CATCH since
  * the macros add them for you.
  *
+ * \note
+ * The older version of Catch supported a description for a section.
+ * Now that's useless so we only offer a name here.
+ *
  * \param[in] name  The name of the section.
  */
 #define CATCH_START_SECTION(name) \

@@ -1,3 +1,9 @@
+snapcatch2 (2.9.1.0~xenial) xenial; urgency=high
+
+  * Upgraded to Catch2 version 2.9.1.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Mon,  8 Jul 2019 14:23:36 -0800
+
 snapcatch2 (2.8.0.4~xenial) xenial; urgency=high
 
   * Added the ExceptionWatcher to easily verify the message of an exception.

@@ -377,6 +377,106 @@ inline int snap_catch2_main(
 
 
 
+inline void catch_compare_long_strings(std::string const & a, std::string const & b)
+{
+    auto print_char = [](char c)
+    {
+        if(c == 0x20)
+        {
+            // Possible characters to make spaces visible are:
+            //      U+23B5      BOTTOM SQUARE BRACKET
+            //      U+2420      SYMBOL FOR SPACE
+            //      U+2423      OPEN BOX
+            //
+            std::cout << "\xE2\x90\xA3";
+        }
+        else if(static_cast<unsigned char>(c) < 0x20)
+        {
+            // control character
+            //
+            std::cout << "^" << static_cast<char>(c + 0x40);
+        }
+        else if(static_cast<unsigned char>(c) < 0x80 || static_cast<unsigned char>(c) > 0x9F)
+        {
+            // standard character
+            //
+            std::cout << c;
+        }
+        else
+        {
+            // graphical control
+            //
+            std::cout << "@" << static_cast<char>(c - 0x40);
+        }
+    };
+
+    if(a == b)
+    {
+        return;
+    }
+
+    std::cout << "error: long strings do not match.\n"
+              << "---------------------------------------------------\n";
+
+    // TODO: we may want to look into supporting UTF-8 properly
+    //
+    size_t const max(std::min(a.length(), b.length()));
+    bool err(false);
+    for(size_t idx(0); idx < max; ++idx)
+    {
+        if(a[idx] == b[idx])
+        {
+            if(err)
+            {
+                err = false;
+                std::cout << "\033[0m";
+            }
+            std::cout << a[idx];
+        }
+        else
+        {
+            if(!err)
+            {
+                err = true;
+                std::cout << "\033[7m";
+            }
+            std::cout << "[";
+            print_char(a[idx]);
+            std::cout << "/";
+            print_char(b[idx]);
+            std::cout << "]";
+        }
+    }
+
+    std::cout << std::endl
+              << "---------------------------------------------------" << std::endl;
+
+    if(a.length() > b.length())
+    {
+        std::cout << "Left hand side string is longer ("
+                  << a.length()
+                  << " versus "
+                  << b.length()
+                  << ")."
+                  << std::endl;
+    }
+    else if(b.length() > a.length())
+    {
+        std::cout << "Right hand side string is longer ("
+                  << a.length()
+                  << " versus "
+                  << b.length()
+                  << ")."
+                  << std::endl;
+    }
+
+    // to generate the standard error too
+    //
+    CATCH_REQUIRE(a == b);
+}
+
+
+
 
 } // SNAP_CATCH2_NAMESPACE namespace
 
@@ -422,6 +522,26 @@ inline int snap_catch2_main(
  */
 #define CATCH_END_SECTION() \
     }
+
+
+/** \brief Require that two long strings be equal.
+ *
+ * When testing with really long strings, the compare failing will give
+ * you both output but it's pretty much impossible to see the errors.
+ *
+ * Here we call our own function which will highlight the problems
+ * so that way you can immediately see where the first difference occurs.
+ *
+ * \note
+ * This does not make use of the standard catch environment so it will
+ * eventually throw or break in some other ways which may not end up
+ * well.
+ *
+ * \param[in] a  The first string.
+ * \param[in] b  The second string.
+ */
+#define CATCH_REQUIRE_LONG_STRING(a, b) SNAP_CATCH2_NAMESPACE::catch_compare_long_strings(a, b)
+
 
 
 namespace Catch

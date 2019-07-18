@@ -1,7 +1,7 @@
 snapcatch2 (2.9.1.0~xenial) xenial; urgency=high
 
   * Upgraded to Catch2 version 2.9.1.
-  * Added a new macro, CATCH_REQUIRE_LONG_STRING(), which shoes us differences
+  * Added a new macro, CATCH_REQUIRE_LONG_STRING(), which shows us differences
     in long strings.
 
  -- Alexis Wilke <alexis@m2osw.com>  Mon,  8 Jul 2019 14:23:36 -0800

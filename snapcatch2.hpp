@@ -33,6 +33,10 @@
 
 #include <catch2/catch.hpp>
 
+// C++ lib
+//
+#include <iostream>
+
 // C lib
 //
 #include <string.h>

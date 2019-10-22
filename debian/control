@@ -10,7 +10,7 @@ Homepage: https://github.com/catchorg/Catch2
 Bugs: https://github.com/catchorg/Catch2/issues
 Origin: Made to Order Software Corporation
 Vcs-Git: https://github.com/m2osw/snapcpp.git
-Vcs-Browser: https://github.com/m2osw/advgetopt
+Vcs-Browser: https://github.com/m2osw/snapcatch2
 
 Package: snapcatch2
 Section: devel

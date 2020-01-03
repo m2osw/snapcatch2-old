@@ -1,8 +1,8 @@
-snapcatch2 (2.11.1.0~xenial) xenial; urgency=high
+snapcatch2 (2.11.1.1~xenial) xenial; urgency=high
 
   * Upgrade to Catch2 version 2.11.1
 
- -- Alexis Wilke <alexis@m2osw.com>  Fre, 03 Jan 2020 13:10:40 -0800
+ -- Alexis Wilke <alexis@m2osw.com>  Fri, 03 Jan 2020 13:10:40 -0800
 
 snapcatch2 (2.11.0.0~xenial) xenial; urgency=high
 

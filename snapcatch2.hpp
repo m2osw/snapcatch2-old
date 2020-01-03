@@ -451,6 +451,11 @@ inline void catch_compare_long_strings(std::string const & a, std::string const 
             std::cout << "]";
         }
     }
+    if(err)
+    {
+        err = false;
+        std::cout << "\033[0m";
+    }
 
     std::cout << std::endl
               << "---------------------------------------------------" << std::endl;
@@ -558,8 +563,9 @@ class ExceptionWatcher
     : public MatcherBase<std::exception>
 {
 public:
-    ExceptionWatcher(std::string const & expected_message)
+    ExceptionWatcher(std::string const & expected_message, bool verbose)
         : m_expected_message(expected_message)
+        , m_verbose(verbose)
     {
     }
 
@@ -570,6 +576,10 @@ public:
      */
     bool match(std::exception const & e) const override
     {
+        if(m_verbose)
+        {
+            SNAP_CATCH2_NAMESPACE::catch_compare_long_strings(e.what(), m_expected_message);
+        }
         return e.what() == m_expected_message;
     }
 
@@ -588,12 +598,13 @@ public:
 
 private:
     std::string     m_expected_message = std::string();
+    bool            m_verbose = false;
 };
 
 
-inline ExceptionWatcher ExceptionMessage(std::string const & expeted_message)
+inline ExceptionWatcher ExceptionMessage(std::string const & expected_message, bool verbose = false)
 {
-    return ExceptionWatcher(expeted_message);
+    return ExceptionWatcher(expected_message, verbose);
 }
 
 

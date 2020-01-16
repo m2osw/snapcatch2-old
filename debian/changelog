@@ -1,3 +1,9 @@
+snapcatch2 (2.11.1.2~xenial) xenial; urgency=high
+
+  * Fixed example of `--tmpdir`, the `-t` is already used by catch2.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Sat, 11 Jan 2020 22:12:43 -0800
+
 snapcatch2 (2.11.1.1~xenial) xenial; urgency=high
 
   * Upgrade to Catch2 version 2.11.1

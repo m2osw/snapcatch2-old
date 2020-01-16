@@ -180,7 +180,7 @@ inline bool& g_verbose()
  *     {
  *         return cli
  *              | Catch::clara::Opt(g_tmpdir, "tmpdir")
- *                   ["-t"]["--tmpdir"]
+ *                   ["--tmpdir"]
  *                   ("a path to a temporary directory used by the test.");
  *     }
  *
@@ -197,6 +197,11 @@ inline bool& g_verbose()
  *         , &add_command_line_options
  *     );
  * \endcode
+ *
+ * \warning
+ * It is possible to add a one letter command line option such as ["-t"],
+ * however, catch2 already uses most of these options. The `-t` is used
+ * to list tags, for example.
  *
  * The \p callback function gets called just before the tests get run.
  * In other words, we give you one more chance to verify command line

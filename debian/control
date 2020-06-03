@@ -3,7 +3,7 @@ Priority: extra
 Maintainer: R. Douglas Barbieri <doug@dooglio.net>
 Build-Depends: cmake,
     debhelper,
-    snapcmakemodules (>= 1.0.35.3~xenial)
+    snapcmakemodules (>= 1.0.35.3~bionic)
 Standards-Version: 3.9.4
 Section: devel
 Homepage: https://github.com/catchorg/Catch2

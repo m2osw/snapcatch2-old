@@ -1,4 +1,4 @@
 usr/include                           usr
-usr/share/x86_64-linux-gnu/cmake      usr/share/
+usr/share/cmake                       usr/share/
 usr/share/pkgconfig                   usr/share/
 usr/share/Catch2                      usr/share/

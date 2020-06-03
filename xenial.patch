@@ -1,0 +1,10 @@
+diff --git a/debian/snapcatch2.install b/debian/snapcatch2.install
+index 6b74452..f24ed47 100644
+--- a/debian/snapcatch2.install
++++ b/debian/snapcatch2.install
+@@ -1,4 +1,4 @@
+ usr/include                           usr
+-usr/share/x86_64-linux-gnu/cmake      usr/share/
++usr/share/cmake                       usr/share/
+ usr/share/pkgconfig                   usr/share/
+ usr/share/Catch2                      usr/share/

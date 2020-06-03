@@ -1,3 +1,21 @@
+snapcatch2 (2.12.2.0~bionic) bionic; urgency=high
+
+  * Upgrade to 2.12.2.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Thu, 28 May 2020 11:22:13 -0700
+
+snapcatch2 (2.11.1.6~bionic) bionic; urgency=high
+
+  * Bump version to get an ARM version.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Tue, 26 May 2020 17:50:39 -0800
+
+snapcatch2 (2.11.1.5~bionic) bionic; urgency=high
+
+  * Create a bionic version.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Thu, 30 Apr 2020 23:03:04 -0800
+
 snapcatch2 (2.11.1.2~xenial) xenial; urgency=high
 
   * Fixed example of `--tmpdir`, the `-t` is already used by catch2.

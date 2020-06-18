@@ -14,6 +14,152 @@ This package will allow us to upgrade all our projects to the latest
 available quickly and have a consistant version of Catch through various
 versions of Ubuntu.
 
+# Additions
+
+## Command Line Options
+
+The snapcatch2 extension adds support for a few additional command line flags
+that we do not have to manage in each one of our package:
+
+* `-p` or `--progress` -- show progress when entering a section
+* `--verbose` -- make the test more verbose
+* `-S <value>` or `--seed <value>` -- force the random generator seed
+* `-V` or `--version` -- print out version and exit
+
+Note that the seed may not be used if the test never uses a random number.
+
+## Initialization
+
+By default, catch2 gives you a lot of freedom in the initialization process.
+This is great, but at the same time, we noticed that we were repeating many
+things (copy/paste is not too bad once, even twice, but when you have 20
+projects, that's not good).
+
+For that reason, we offer an initialization function. A snapcatch `main()`
+if you'd like.
+
+    int snap_catch2_main(
+          char const * project_name
+        , char const * project_version
+        , int argc
+        , char * argv[]
+        , void (*init_callback)() = nullptr
+        , Catch::clara::Parser (*add_user_options)(Catch::clara::Parser const & cli) = nullptr
+        , int (*callback)(Catch::Session & session) = nullptr
+        , void (*finished_callback)() = nullptr)
+
+This allows us to initialize our Snap! tests in a symetrical way. We have
+to specify a project name, the project version, the command line arguments,
+and four different callbacks.
+
+The `init_callback()` happens immediately upon calling this function.
+
+After the system adds its options (see above) you have the ability to tweak
+the CLI options further as your `add_user_options()` function gets called.
+For example, if you need to support a path where temporary files are to be
+created, you could add such in this callback.
+
+The `callback()` is a function you'd like to run before we print the project
+name and version. Most often it is used to add complementary initialization
+to the test session.
+
+Once the tests ran, `finished_callback()` is called. Here you can do any
+kind of cleanup you'd like to do. For example, you could delete temporary
+files.
+
+### Verbose Flag
+
+When the `--verbose` flag is used on the command line, the corresponding
+variable is set to true.
+
+To check whether the variable is true or false from your tests, use the
+`g_verbose()` function.
+
+Note that the `g_verbose()` function returns a reference to the variable,
+meaning you can modify it if useful (i.e. you can forcibly eliminate
+verbosity in a test). You are responsible for restoring the value once
+your test is done.
+
+### Progress Flag
+
+When the `--progress` flag is used on the command line, the corresponding
+variable is set to true.
+
+To check whether the variable is true or false from your tests, use the
+`g_progress()` function.
+
+Note that the `g_progress()` function returns a reference to the variable,
+meaning you can modify it if useful. You are responsible for restoring the
+value once your test is done.
+
+## Namespace
+
+The snapcatch2 header adds a namespace for you to put your variable
+declarations and pretty much anything else you want to have in your
+tests.
+
+Here is how you use it:
+
+    namespace SNAP_CATCH2_NAMESPACE
+    {
+      ...
+      int g_my_var = 3;
+    }
+
+    # In your tests
+    SNAP_CATCH2_NAMESPACE::g_my_var
+
+By default, the snapcatch2.hpp header offers:
+
+    SNAP_CATCH2_NAMESPACE::g_progress()
+    SNAP_CATCH2_NAMESPACE::g_verbose()
+    SNAP_CATCH2_NAMESPACE::snap_catch2_main()
+    SNAP_CATCH2_NAMESPACE::catch_compare_long_strings()
+
+in the namespace.
+
+The `g_progress()` and `g_verbose()` are flags handled through a function.
+
+## Additional Macros
+
+### Start/End Sections
+
+We added a section start/end delimiter like so:
+
+    CATCH_START_SECTION(name)
+    {
+        // your usual catch2 section
+    }
+    CATCH_END_SECTION()
+
+This allows us to verbose on each section so we know exactly where the errors
+we get happen. Without that and when you have many sections, it's really
+difficult to find your way quickly.
+
+### Long Strings
+
+We often manage very long strings, especially when dealing with HTML and XML.
+The default catch macro handling string is going to diplay the entire strings
+(the good and the bad ones) and good luck to find what's wrong with it.
+
+We added a function which compares the strings and only displays differences
+and a few characters before after. This makes it really easy to find the
+differences, even if it's just one period, a space at the end of a line, etc.
+
+    CATCH_REQUIRE_LONG_STRING(a, b)
+
+This is the same as `CATCH_REQUIRE(a, b)` when `a` and `b` are long strings.
+Note that you can also use this with short strings. It's probably not as
+useful with such, though.
+
+## Exception Watcher
+
+The `ExceptionWatcher` class is used to check the message of exceptions.
+The default Catch2 exception handler does not offer a way to compare the
+exception message and the exception type at the same time. Not only that
+we expect some messages to be very long so we use the
+`catch_compare_long_strings()` to display the message in verbose mode.
+
 # Building
 
 ## Within the Snap! Websites Environment

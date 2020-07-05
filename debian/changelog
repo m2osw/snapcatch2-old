@@ -1,6 +1,7 @@
 snapcatch2 (2.12.4.0~bionic) bionic; urgency=high
 
   * Upgrade to 2.12.4.
+  * Added a .gitignore.
 
  -- Alexis Wilke <alexis@m2osw.com>  Sun, 05 Jul 2020 11:14:49 -0700
 

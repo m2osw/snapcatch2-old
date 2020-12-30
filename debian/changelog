@@ -1,3 +1,9 @@
+snapcatch2 (2.13.4.0~bionic) bionic; urgency=high
+
+  * Upgrade to 2.13.4.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Wed, 30 Dec 2020 14:06:44 -0800
+
 snapcatch2 (2.13.2.0~bionic) bionic; urgency=high
 
   * Upgrade to 2.13.2.

@@ -1,4 +1,4 @@
-snapcatch2 (2.13.5.0~bionic) bionic; urgency=high
+snapcatch2 (2.13.4.2~bionic) bionic; urgency=high
 
   * Added the .a library to the package now that it is required.
 

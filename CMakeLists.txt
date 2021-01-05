@@ -34,6 +34,7 @@ SnapGetVersion( SNAPCATCH2 ${CMAKE_CURRENT_SOURCE_DIR} )
 set(SNAPCATCH2_VERSION ${SNAPCATCH2_VERSION_MAJOR}.${SNAPCATCH2_VERSION_MINOR}.${SNAPCATCH2_VERSION_PATCH})
 set(OUTPUT_PATH ${CMAKE_BINARY_DIR}/Catch2-${SNAPCATCH2_VERSION})
 
+message("CMAKE_INSTALL_LIBDIR = ${CMAKE_INSTALL_LIBDIR}")
 add_custom_command(
     OUTPUT ${OUTPUT_PATH}/out/include/catch2/catch.hpp
     COMMAND echo "------------ sub-cmake call in `pwd` -- ${CMAKE_INSTALL_PREFIX}"
@@ -66,6 +67,19 @@ install(
 install(
     DIRECTORY
         ${OUTPUT_PATH}/out/lib/
+
+    DESTINATION
+        .
+
+    FILES_MATCHING PATTERN
+        lib*
+
+    PATTERN cmake EXCLUDE
+)
+
+install(
+    DIRECTORY
+        ${OUTPUT_PATH}/out/lib/cmake
 
     DESTINATION
         share

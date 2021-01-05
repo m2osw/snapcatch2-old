@@ -1,3 +1,9 @@
+snapcatch2 (2.13.4.1~bionic) bionic; urgency=high
+
+  * Fixed the installation, the library has to go under dist/lib/...
+
+ -- Alexis Wilke <alexis@m2osw.com>  Mon, 04 Jan 2021 16:33:23 -0800
+
 snapcatch2 (2.13.4.0~bionic) bionic; urgency=high
 
   * Upgrade to 2.13.4.

@@ -69,7 +69,7 @@ install(
         ${OUTPUT_PATH}/out/lib/
 
     DESTINATION
-        .
+        lib
 
     FILES_MATCHING PATTERN
         lib*
@@ -79,10 +79,10 @@ install(
 
 install(
     DIRECTORY
-        ${OUTPUT_PATH}/out/lib/cmake
+        ${OUTPUT_PATH}/out/lib/cmake/
 
     DESTINATION
-        share
+        share/cmake
 )
 
 install(

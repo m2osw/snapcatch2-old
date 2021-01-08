@@ -1,5 +1,5 @@
 usr/include                           usr
-usr/lib/libCatch2WithMain.a           usr/lib/
+usr/lib/*                             usr/lib/
 usr/share/cmake                       usr/share/
 usr/share/pkgconfig                   usr/share/
 usr/share/Catch2                      usr/share/

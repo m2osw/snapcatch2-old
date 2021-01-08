@@ -1,3 +1,9 @@
+snapcatch2 (2.13.4.8~bionic) bionic; urgency=high
+
+  * Moving the .a library is not an option. Keep it under the <arch>-linux-gnu.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Fri, 08 Jan 2021 12:28:59 -0800
+
 snapcatch2 (2.13.4.7~bionic) bionic; urgency=high
 
   * The ';' require a '\' in cmake so they appear in the Makefile.

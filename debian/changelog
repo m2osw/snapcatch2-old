@@ -1,3 +1,9 @@
+snapcatch2 (2.13.4.4~bionic) bionic; urgency=high
+
+  * What changes is the input, not the output. Oops.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Fri, 08 Jan 2021 08:44:43 -0800
+
 snapcatch2 (2.13.4.3~bionic) bionic; urgency=high
 
   * Added a pattern to support the additional xenial sub-directory.

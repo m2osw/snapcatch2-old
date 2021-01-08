@@ -66,15 +66,13 @@ install(
 install(
     DIRECTORY
         ${OUTPUT_PATH}/out/lib/
+        ${OUTPUT_PATH}/out/lib/*-linux-gnu
 
     DESTINATION
         lib
 
     FILES_MATCHING PATTERN
         lib*
-
-    PATTERN
-        */lib*
 
     PATTERN cmake EXCLUDE
 )
@@ -84,15 +82,10 @@ install(
 install(
     DIRECTORY
         ${OUTPUT_PATH}/out/lib/cmake/
+        ${OUTPUT_PATH}/out/lib/*-linux-gnu/cmake/
 
     DESTINATION
         share/cmake
-
-    FILES_MATCHING PATTERN
-        lib/cmake/*
-
-    PATTERN
-        */lib/cmake/*
 )
 
 install(

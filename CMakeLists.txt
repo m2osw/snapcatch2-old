@@ -45,6 +45,7 @@ add_custom_command(
     COMMAND mkdir -p ${OUTPUT_PATH}/projects/Generated
     COMMAND cd ${OUTPUT_PATH}/projects/Generated && ${CMAKE_COMMAND} -DCATCH_BUILD_TESTING=off -DCATCH_INSTALL_HELPERS=on -DCATCH_INSTALL_DOCS=on -DCMAKE_INSTALL_PREFIX=${OUTPUT_PATH}/out ../..
     COMMAND make -C ${OUTPUT_PATH}/projects/Generated install
+    COMMAND if test -d ${OUTPUT_PATH}/out/lib/*-linux-gnu; then mv ${OUTPUT_PATH}/out/lib ${OUTPUT_PATH}/out/ignore; mv ${OUTPUT_PATH}/out/ignore/*-linux-gnu ${OUTPUT_PATH}/out/lib; rmdir ${OUTPUT_PATH}/out/ignore; fi
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 )
 
@@ -62,9 +63,6 @@ install(
         include
 )
 
-# The libraries may be under a sub-directory in xenial:
-#     /usr/lib[/<arch>-linux-gnu]
-#
 install(
     DIRECTORY
         ${OUTPUT_PATH}/out/lib/
@@ -76,23 +74,19 @@ install(
         lib*
 
     PATTERN cmake EXCLUDE
-    PATTERN *-linux-gnu EXCLUDE
 )
 
 # The current setup places the cmake directory under
-#     /usr/lib[/<arch>-linux-gnu]/cmake
+#     /usr/lib/cmake
 # On our end we want it under
 #     /usr/share/cmake
 #
 install(
     DIRECTORY
-        ${OUTPUT_PATH}/out/lib
+        ${OUTPUT_PATH}/out/lib/cmake/
 
     DESTINATION
         share/cmake
-
-    FILES_MATCHING PATTERN
-        *.cmake
 )
 
 install(

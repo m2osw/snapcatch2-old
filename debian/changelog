@@ -1,3 +1,9 @@
+snapcatch2 (2.13.4.7~bionic) bionic; urgency=high
+
+  * The ';' require a '\' in cmake so they appear in the Makefile.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Fri, 08 Jan 2021 09:50:54 -0800
+
 snapcatch2 (2.13.4.6~bionic) bionic; urgency=high
 
   * Okay, I gave up doing it with cmake, instead use the shell to move files.

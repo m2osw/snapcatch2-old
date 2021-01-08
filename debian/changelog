@@ -1,3 +1,10 @@
+snapcatch2 (2.13.4.5~bionic) bionic; urgency=high
+
+  * The DIRECTORY forces each entry to include at least one file.
+    So instead I have to use a pattern with the non-variable directory.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Fri, 08 Jan 2021 09:13:20 -0800
+
 snapcatch2 (2.13.4.4~bionic) bionic; urgency=high
 
   * What changes is the input, not the output. Oops.

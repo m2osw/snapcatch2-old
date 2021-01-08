@@ -62,11 +62,12 @@ install(
         include
 )
 
-# The libraries may be under a sub-directory in xenial: /usr/lib[/<arch>--linux-gnu]
+# The libraries may be under a sub-directory in xenial:
+#     /usr/lib[/<arch>-linux-gnu]
+#
 install(
     DIRECTORY
         ${OUTPUT_PATH}/out/lib/
-        ${OUTPUT_PATH}/out/lib/*-linux-gnu
 
     DESTINATION
         lib
@@ -75,17 +76,23 @@ install(
         lib*
 
     PATTERN cmake EXCLUDE
+    PATTERN *-linux-gnu EXCLUDE
 )
 
-# The current setup places the cmake directory under /usr/lib[/<arch>--linux-gnu]
-# On our end we want it under /usr/share instead
+# The current setup places the cmake directory under
+#     /usr/lib[/<arch>-linux-gnu]/cmake
+# On our end we want it under
+#     /usr/share/cmake
+#
 install(
     DIRECTORY
-        ${OUTPUT_PATH}/out/lib/cmake/
-        ${OUTPUT_PATH}/out/lib/*-linux-gnu/cmake/
+        ${OUTPUT_PATH}/out/lib
 
     DESTINATION
         share/cmake
+
+    FILES_MATCHING PATTERN
+        *.cmake
 )
 
 install(

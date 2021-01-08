@@ -1,3 +1,9 @@
+snapcatch2 (2.13.4.3~bionic) bionic; urgency=high
+
+  * Added a `find` to see where things are under xenial.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Fri, 08 Jan 2021 07:39:08 -0800
+
 snapcatch2 (2.13.4.2~bionic) bionic; urgency=high
 
   * Added the .a library to the package now that it is required.

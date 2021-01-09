@@ -1,3 +1,10 @@
+snapcatch2 (2.13.4.9~bionic) bionic; urgency=high
+
+  * There is a static library that was introduced in 2.13.4 that causes hurdles
+    between bionic and older versions of Ubuntu... still working on it.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Fri, 08 Jan 2021 16:02:55 -0800
+
 snapcatch2 (2.13.4.8~bionic) bionic; urgency=high
 
   * Moving the .a library is not an option. Keep it under the <arch>-linux-gnu.

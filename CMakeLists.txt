@@ -35,6 +35,11 @@ set(SNAPCATCH2_VERSION ${SNAPCATCH2_VERSION_MAJOR}.${SNAPCATCH2_VERSION_MINOR}.$
 set(OUTPUT_PATH ${CMAKE_BINARY_DIR}/Catch2-${SNAPCATCH2_VERSION})
 
 message("CMAKE_INSTALL_LIBDIR = ${CMAKE_INSTALL_LIBDIR}")
+
+# The copy of the cmake folder is for developers; as far as the package is
+# concerned, the "normal" location (as choosen by Catch2/CMake/LinuxGNU) is
+# used as expected (and it changed between drastically between 16.04 & 18.04)
+#
 add_custom_command(
     OUTPUT ${OUTPUT_PATH}/out/include/catch2/catch.hpp
     COMMAND echo "------------ sub-cmake call in `pwd` -- ${CMAKE_INSTALL_PREFIX}"
@@ -45,7 +50,7 @@ add_custom_command(
     COMMAND mkdir -p ${OUTPUT_PATH}/projects/Generated
     COMMAND cd ${OUTPUT_PATH}/projects/Generated && ${CMAKE_COMMAND} -DCATCH_BUILD_TESTING=off -DCATCH_INSTALL_HELPERS=on -DCATCH_INSTALL_DOCS=on -DCMAKE_INSTALL_PREFIX=${OUTPUT_PATH}/out ../..
     COMMAND make -C ${OUTPUT_PATH}/projects/Generated install
-    COMMAND if test -d ${OUTPUT_PATH}/out/lib/*-linux-gnu\; then mv ${OUTPUT_PATH}/out/lib/*-linux-gnu/cmake ${OUTPUT_PATH}/out/lib/cmake\; fi
+    COMMAND if test -d ${OUTPUT_PATH}/out/lib/*-linux-gnu\; then cp -r ${OUTPUT_PATH}/out/lib/*-linux-gnu/cmake/* ${OUTPUT_PATH}/out/share/cmake/.\; fi
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 )
 
@@ -69,22 +74,6 @@ install(
 
     DESTINATION
         lib
-
-    FILES_MATCHING PATTERN
-        lib*
-)
-
-# The current setup places the cmake directory under
-#     /usr/lib/cmake
-# On our end we want it under
-#     /usr/share/cmake
-#
-install(
-    DIRECTORY
-        ${OUTPUT_PATH}/out/lib/cmake/
-
-    DESTINATION
-        share/cmake
 )
 
 install(

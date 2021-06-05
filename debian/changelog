@@ -1,3 +1,9 @@
+snapcatch2 (2.13.6.1~bionic) bionic; urgency=high
+
+  * Bumped build version to rebuild on Launchpad.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Fri, 04 Jun 2021 17:40:26 -0700
+
 snapcatch2 (2.13.6.0~bionic) bionic; urgency=high
 
   * Upgrade to 2.13.6.

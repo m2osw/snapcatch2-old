@@ -1,3 +1,9 @@
+snapcatch2 (2.13.7.1~bionic) bionic; urgency=high
+
+  * Bump build version to rebuild against newer snapcmakemodules.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Tue, 24 Aug 2021 13:53:46 -0700
+
 snapcatch2 (2.13.7.0~bionic) bionic; urgency=high
 
   * Upgrade to 2.13.7.

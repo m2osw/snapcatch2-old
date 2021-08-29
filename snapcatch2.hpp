@@ -150,7 +150,7 @@ inline bool& g_verbose()
  *         , "1.2.3"
  *         , argc
  *         , argv
- *         , []() { libexcept::set_collect_stack(false); }
+ *         , []() { libexcept::set_collect_stack(libexcept::collect_stack_t::COLLECT_STACK_NO); }
  *     );
  * \endcode
  *

@@ -1,3 +1,9 @@
+snapcatch2 (2.13.7.2~bionic) bionic; urgency=high
+
+  * Bumped build version to rebuild on Launchpad.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Sat, 28 Aug 2021 22:52:42 -0700
+
 snapcatch2 (2.13.7.1~bionic) bionic; urgency=high
 
   * Bump build version to rebuild against newer snapcmakemodules.

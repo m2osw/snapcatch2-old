@@ -25,6 +25,7 @@
 // C++ lib
 //
 #include <iostream>
+#include <sstream>
 
 // C lib
 //
@@ -85,12 +86,95 @@ namespace SNAP_CATCH2_NAMESPACE
  *
  * \return A read-write reference to the `progress` parameter.
  */
-inline bool& g_progress()
+inline bool & g_progress()
 {
     static bool progress = false;
 
     return progress;
 }
+
+
+/** \brief Retrieve the temporary directory.
+ *
+ * Many tests make use of input and output files. These are expected
+ * to be saved in a temporary. This function returns the path to that
+ * directory.
+ *
+ * The path will have been cleaned up on initialization. It is available
+ * in all of our tests, although many use a temporary folder, some do not.
+ *
+ * \return A reference to the user specified directory.
+ */
+inline std::string & g_tmp_dir()
+{
+    static std::string tmp_dir = std::string();
+
+    return tmp_dir;
+}
+
+
+namespace detail
+{
+
+inline void init_tmp_dir(std::string const & project_name)
+{
+    std::string & path(g_tmp_dir());
+
+    // make sure it's not just "/tmp" since we're about to delete it
+    // with `rm -rf ...`
+    //
+    if(path == "/tmp")
+    {
+        std::cerr
+            << "fatal error: temporary directory cannot be \"/tmp\"."
+              " It needs to include a sub-directory (\"/tmp/"
+            << project_name
+            << "\", for example)."
+            << std::endl;
+        exit(1);
+    }
+
+    // default to /tmp/<project-name> if not defined
+    //
+    if(path.empty())
+    {
+        // TODO: make sure "project_name" is "clean" (spaces -> '_', slashes?)
+        //
+        path = "/tmp/" + project_name;
+    }
+
+    // delete the directory if it exists
+    //
+    // this ensure an equivalent state each time we run the tests
+    {
+        std::stringstream ss;
+        ss << "rm -rf \"" << path << "\"";
+        if(system(ss.str().c_str()) != 0)
+        {
+            std::cerr
+                << "fatal error: could not delete temporary directory \""
+                << path
+                << "\".";
+            exit(1);
+        }
+    }
+
+    // create the directory
+    {
+        std::stringstream ss;
+        ss << "mkdir -p \"" << path << "\"";
+        if(system(ss.str().c_str()) != 0)
+        {
+            std::cerr
+                << "fatal error: could not create temporary directory \""
+                << path
+                << "\".";
+            exit(1);
+        }
+    }
+}
+
+} // detail namespace
 
 
 /** \brief Print out information to let programmers know what tests are doing.
@@ -110,7 +194,7 @@ inline bool& g_progress()
  *
  * \return A read-write reference to the `verbose` parameter.
  */
-inline bool& g_verbose()
+inline bool & g_verbose()
 {
     static bool verbose = false;
 
@@ -285,6 +369,9 @@ inline int snap_catch2_main(
                  | Catch::clara::Opt(g_progress())
                     ["-p"]["--progress"]
                     ("print name of test section being run")
+                 | Catch::clara::Opt(g_tmp_dir(), "tmp_dir")
+                    ["-T"]["--tmp-dir"]
+                    ("specify a temporary directory")
                  | Catch::clara::Opt(g_verbose())
                     ["--verbose"]
                     ("print additional information from within our own tests")
@@ -301,7 +388,7 @@ inline int snap_catch2_main(
 
         if(session.applyCommandLine(argc, argv) != 0)
         {
-            std::cerr << "Error in command line." << std::endl;
+            std::cerr << "fatal error: invalid command line." << std::endl;
             return 1;
         }
 
@@ -310,6 +397,8 @@ inline int snap_catch2_main(
             std::cout << project_version << std::endl;
             return 0;
         }
+
+        detail::init_tmp_dir(project_name);
 
         // by default we get a different seed each time; that really helps
         // in detecting errors! At least it helped me many times.
@@ -332,6 +421,10 @@ inline int snap_catch2_main(
                   << getpid()
                   << "]:unittest: seed is "
                   << seed
+                  << "\n"
+                  << "temporary directory: \""
+                  << g_tmp_dir()
+                  << "\""
                   << std::endl;
 
         auto const r(session.run());

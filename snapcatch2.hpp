@@ -1,23 +1,21 @@
-/*
- * Copyright (c) 2019  Made to Order Software Corp.  All Rights Reserved
- *
- * https://snapwebsites.org/
- * contact@m2osw.com
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along
- * with this program; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */
+// Copyright (c) 2019-2021  Made to Order Software Corp.  All Rights Reserved
+//
+// https://snapwebsites.org/project/snapcatch2
+// contact@m2osw.com
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #pragma once
 
 #include <catch2/catch.hpp>
@@ -572,6 +570,41 @@ inline void catch_compare_long_strings(std::string const & a, std::string const 
 }
 
 
+template<typename F>
+F default_epsilon()
+{
+    return static_cast<F>(0.00001);
+}
+
+
+template<typename F>
+bool nearly_equal(
+      F const lhs
+    , F const rhs
+    , F epsilon = default_epsilon<F>())
+{
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wfloat-equal"
+    // already equal?
+    if(lhs == rhs)
+    {
+        return true;
+    }
+
+    F const diff = fabs(lhs - rhs);
+    if(lhs == 0.0
+    || rhs == 0.0
+    || diff < std::numeric_limits<F>::min())
+    {
+        return diff < (epsilon * std::numeric_limits<F>::min());
+    }
+#pragma GCC diagnostic pop
+
+    return diff / (fabs(lhs) + fabs(rhs)) < epsilon;
+}
+
+
+
 
 
 } // SNAP_CATCH2_NAMESPACE namespace
@@ -637,6 +670,10 @@ inline void catch_compare_long_strings(std::string const & a, std::string const 
  * \param[in] b  The second string.
  */
 #define CATCH_REQUIRE_LONG_STRING(a, b) SNAP_CATCH2_NAMESPACE::catch_compare_long_strings(a, b)
+
+
+
+#define CATCH_REQUIRE_FLOATING_POINT(a, b) SNAP_CATCH2_NAMESPACE::nearly_equal(a, b)
 
 
 

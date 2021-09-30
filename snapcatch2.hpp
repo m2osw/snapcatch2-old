@@ -591,7 +591,7 @@ bool nearly_equal(
         return true;
     }
 
-    F const diff = fabs(lhs - rhs);
+    F const diff(std::abs(lhs - rhs));
     if(lhs == 0.0
     || rhs == 0.0
     || diff < std::numeric_limits<F>::min())
@@ -600,7 +600,7 @@ bool nearly_equal(
     }
 #pragma GCC diagnostic pop
 
-    return diff / (fabs(lhs) + fabs(rhs)) < epsilon;
+    return diff / (std::abs(lhs) + std::abs(rhs)) < epsilon;
 }
 
 

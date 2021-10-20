@@ -1,25 +1,21 @@
-# Copyright (c) 2006-2019  Made to Order Software Corp.  All Rights Reserved.
+# Copyright (c) 2006-2021  Made to Order Software Corp.  All Rights Reserved.
 #
-# https://snapwebsites.org/
+# https://snapwebsites.org/project/snapcatch2
 # contact@m2osw.com
 # 
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
 #
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 #
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 cmake_minimum_required(VERSION 2.8.4)
 
@@ -27,9 +23,9 @@ project(snapcatch2)
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
-find_package( SnapCMakeModules REQUIRED )
+find_package(SnapCMakeModules REQUIRED)
 
-SnapGetVersion( SNAPCATCH2 ${CMAKE_CURRENT_SOURCE_DIR} )
+SnapGetVersion(SNAPCATCH2 ${CMAKE_CURRENT_SOURCE_DIR})
 
 set(SNAPCATCH2_VERSION ${SNAPCATCH2_VERSION_MAJOR}.${SNAPCATCH2_VERSION_MINOR}.${SNAPCATCH2_VERSION_PATCH})
 set(OUTPUT_PATH ${CMAKE_BINARY_DIR}/Catch2-${SNAPCATCH2_VERSION})
@@ -56,7 +52,7 @@ add_custom_command(
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 )
 
-message( "Dependency: ${OUTPUT_PATH}" )
+message("Dependency: ${OUTPUT_PATH}")
 add_custom_target( run ALL
     DEPENDS ${OUTPUT_PATH}/out/include/catch2/catch.hpp
     COMMENT "Generating API documentation with Doxygen" VERBATIM
@@ -93,5 +89,7 @@ install(
     DESTINATION
         include/catch2
 )
+
+add_subdirectory(cmake)
 
 # vim: ts=4 sw=4 et nocindent

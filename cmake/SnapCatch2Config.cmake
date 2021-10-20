@@ -2,10 +2,8 @@
 #
 # Once done this will define
 #
-# SNAPCATCH2_FOUND        - System has SnapCatch2
+# SnapCatch2_FOUND        - System has SnapCatch2
 # SNAPCATCH2_INCLUDE_DIRS - The SnapCatch2 include directories
-# SNAPCATCH2_LIBRARIES    - The libraries needed to use SnapCatch2 (none)
-# SNAPCATCH2_DEFINITIONS  - Compiler switches required for using SnapCatch2 (none)
 #
 # License:
 #
@@ -30,37 +28,26 @@
 
 find_path(
     SNAPCATCH2_INCLUDE_DIR
-        snapcatch2/version.h
+        catch2/snapcatch2.hpp
 
     PATHS
         $ENV{SNAPCATCH2_INCLUDE_DIR}
 )
 
-find_library(
-    SNAPCATCH2_LIBRARY
-        snapcatch2
-
-    PATHS
-        $ENV{SNAPCATCH2_LIBRARY}
-)
-
 mark_as_advanced(
     SNAPCATCH2_INCLUDE_DIR
-    SNAPCATCH2_LIBRARY
 )
 
 set(SNAPCATCH2_INCLUDE_DIRS ${SNAPCATCH2_INCLUDE_DIR})
-set(SNAPCATCH2_LIBRARIES    ${SNAPCATCH2_LIBRARY})
 
 include(FindPackageHandleStandardArgs)
 
-# handle the QUIETLY and REQUIRED arguments and set SNAPCATCH2_FOUND to
+# handle the QUIETLY and REQUIRED arguments and set SnapCatch2_FOUND to
 # TRUE if all listed variables are TRUE
 find_package_handle_standard_args(
     SnapCatch2
     DEFAULT_MSG
     SNAPCATCH2_INCLUDE_DIR
-    SNAPCATCH2_LIBRARY
 )
 
 # vim: ts=4 sw=4 et

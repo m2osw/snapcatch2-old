@@ -2,7 +2,7 @@
 #
 # Once done this will define
 #
-# SnapCatch2_FOUND        - System has SnapCatch2
+# SNAPCATCH2_FOUND        - System has SnapCatch2
 # SNAPCATCH2_INCLUDE_DIRS - The SnapCatch2 include directories
 #
 # License:
@@ -31,7 +31,7 @@ find_path(
         catch2/snapcatch2.hpp
 
     PATHS
-        $ENV{SNAPCATCH2_INCLUDE_DIR}
+        ENV SNAPCATCH2_INCLUDE_DIR
 )
 
 mark_as_advanced(

@@ -68,10 +68,22 @@ install(
 
 install(
     DIRECTORY
-        ${OUTPUT_PATH}/out/lib/
+        ${OUTPUT_PATH}/out/lib
 
     DESTINATION
-        lib
+        .
+
+    OPTIONAL
+)
+
+install(
+    DIRECTORY
+        ${OUTPUT_PATH}/out/lib64
+
+    DESTINATION
+        .
+
+    OPTIONAL
 )
 
 install(

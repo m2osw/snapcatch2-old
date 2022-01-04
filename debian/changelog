@@ -1,3 +1,9 @@
+snapcatch2 (2.13.8.0~bionic) bionic; urgency=high
+
+  * Updated to latest available version of catch2.
+
+ -- Alexis Wilke <alexis@m2osw.com>  Tue, 04 Jan 2022 10:08:54 -0800
+
 snapcatch2 (2.13.7.3~bionic) bionic; urgency=high
 
   * Added the --tmp-dir command line option here instead of duplicating code.
